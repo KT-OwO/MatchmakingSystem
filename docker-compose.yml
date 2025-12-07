@@ -7,9 +7,11 @@ services:
       POSTGRES_PASSWORD: mypassword
       POSTGRES_DB: mydb
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - ./postgres_data:/var/lib/postgresql/data:ro
     ports:
       - "5432:5432"
+    networks:
+      - match
 
   pgadmin:
     image: dpage/pgadmin4
@@ -21,6 +23,8 @@ services:
       - "8080:80"
     depends_on:
       - postgres
+    networks:
+      - match
 
   nodered:
     image: nodered/node-red
@@ -32,8 +36,10 @@ services:
     environment:
       - TZ=Asia/Tokyo
     volumes:
-      - nodered_data:/data
+      - ./nodered_data/flows.json:/data/flows.json
+    networks:
+      - match
 
-volumes:
-  postgres_data:
-  nodered_data:
+
+networks:
+  match:

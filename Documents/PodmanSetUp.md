@@ -25,9 +25,6 @@ podman machine start
 
 ##  4. コンテナの起動と停止
 
-
----
-
 起動
 ```powershell
 podman-compose up
